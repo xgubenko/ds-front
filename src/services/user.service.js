@@ -6,7 +6,7 @@ const API_URL = 'https://devstack-info.herokuapp.com/';
 class UserService {
 
   getUserInfo() {
-    return axios.get(API_URL + 'user/info', { headers: authHeader() });
+    return axios.get(API_URL + 'info/user', { headers: authHeader() });
   }
 
   getPublicContent() {

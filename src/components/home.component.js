@@ -33,8 +33,9 @@ export default class Home extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content.username}</h3>
-          <h3>{this.state.content.password}</h3>
+          <h3>Username: {this.state.content.username}</h3>
+          <h3>User email: {this.state.content.email}</h3>
+          <h3>User enabled: {String(this.state.content.isEnabled)}</h3>
         </header>
       </div>
     );
