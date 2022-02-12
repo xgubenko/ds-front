@@ -1,8 +1,6 @@
 import axios from 'axios';
 import authHeader from './auth-header';
-
-// const API_URL = 'https://devstack-info.herokuapp.com/';
-const API_URL = 'http://localhost:8080/';
+import {API_URL} from "./constants";
 
 class UserService {
 

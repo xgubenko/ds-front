@@ -74,7 +74,7 @@ export default class Home extends Component {
                                         return <div>
                                             <div className="card" style={{marginTop: 8}}>
                                             <div className="form-row">
-                                                <div className="form-group col-md-1">
+                                                <div className="form-group col-md-2">
                                                     {message.author.username}:
                                                 </div>
                                                 <div className="form-group col-md-9">

@@ -1,7 +1,5 @@
 import axios from "axios";
-
-// const API_URL = "https://devstack-info.herokuapp.com/";
-const API_URL = 'http://localhost:8080/';
+import {API_URL} from "./constants";
 
 class AuthService {
   login(username, password) {
