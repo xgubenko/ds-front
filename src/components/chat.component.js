@@ -60,17 +60,17 @@ export default class Chat extends Component {
                             onChange={this.onChangeMessageText}/>
                     </div>
 
-                    <div className="col mx-sm-3 mb-2">
-                        <Input
-                            placeholder="Tag"
-                            type="text"
-                            className="form-control"
-                            name="messageTag"
-                            value={this.state.messageTag}
-                            onChange={this.onChangeMessageTag}
-                            // validations={[required]}
-                        />
-                    </div>
+                    {/*<div className="col mx-sm-3 mb-2">*/}
+                    {/*    <Input*/}
+                    {/*        placeholder="Tag"*/}
+                    {/*        type="text"*/}
+                    {/*        className="form-control"*/}
+                    {/*        name="messageTag"*/}
+                    {/*        value={this.state.messageTag}*/}
+                    {/*        onChange={this.onChangeMessageTag}*/}
+                    {/*        // validations={[required]}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <button className="col btn btn-primary mb-2">
                         <span>Send</span>
                     </button>
