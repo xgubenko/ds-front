@@ -2,7 +2,7 @@ import axios from "axios";
 import {API_URL} from "./constants";
 
 class AuthService {
-  login(username, password) {
+  login(username: string, password: string) {
     return axios
       .post(API_URL + "login", {
         username,
@@ -21,7 +21,7 @@ class AuthService {
     localStorage.removeItem("accessToken");
   }
 
-  register(username, email, password) {
+  register(username: string, email: string, password: string) {
     return axios.post(API_URL + "signup", {
       username,
       email,
@@ -30,7 +30,7 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user') as string);
   }
 
   getCurrentToken() {

@@ -50,8 +50,6 @@ export default class Home extends Component {
 
     render() {
         let username = this.state.content.username;
-        let email = this.state.content.email;
-        let enabled = String(this.state.content.isEnabled)
 
         return (
             <div>
