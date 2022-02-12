@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
-const parseJwt = (token) => {
+const parseJwt = (token: string) => {
   try {
     return JSON.parse(atob(token.split('.')[1]));
   } catch (e) {
@@ -9,12 +9,12 @@ const parseJwt = (token) => {
   }
 };
 
-class AuthVerify extends Component {
-  constructor(props) {
+class AuthVerify extends Component<RouteComponentProps> {
+  constructor(props: any) {
     super(props);
 
     props.history.listen(() => {
-      const token = JSON.parse(localStorage.getItem("accessToken"));
+      const token = JSON.parse(localStorage.getItem("accessToken") as string);
 
       if (token) {
         const decodedJwt = parseJwt(token);

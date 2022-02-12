@@ -3,7 +3,7 @@ import authHeader from "./auth-header";
 import {API_URL} from "./constants";
 
 class ChatService {
-    sendMessage(messageText, messageTag) {
+    sendMessage(messageText: string, messageTag: string) {
 
         console.log(messageText + messageTag)
 
