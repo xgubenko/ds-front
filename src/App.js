@@ -13,7 +13,7 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
-// import AuthVerify from "./common/auth-verify";
+import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 
 class App extends Component {
@@ -25,17 +25,29 @@ class App extends Component {
       showModeratorBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
+      accessToken: undefined
     };
   }
 
   componentDidMount() {
+
+    const token = AuthService.getCurrentToken();
+
+    if(token) {
+      this.setState({
+        accessToken: token
+      })
+    }
+
     const user = AuthService.getCurrentUser();
 
     if (user) {
       this.setState({
         currentUser: user,
-        // showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        // showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
+        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        // accessToken: localStorage.getItem("accessToken")
+
       });
     }
     
@@ -43,6 +55,12 @@ class App extends Component {
       this.logOut();
     });
   }
+
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   this.setState({
+      // accessToken: localStorage.getItem("accessToken")
+    // })
+  // }
 
   componentWillUnmount() {
     EventBus.remove("logout");
@@ -54,17 +72,18 @@ class App extends Component {
       showModeratorBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
+      accessToken: undefined,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
+    const { accessToken, currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    // const accessToken = localStorage.getItem('accessToken')
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            kek
+            DevStack
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -98,16 +117,16 @@ class App extends Component {
             )}
           </div>
 
-          {currentUser ? (
+          {accessToken ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                  {/*{currentUser.username}*/}
                 </Link>
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  Logout
                 </a>
               </li>
             </div>
@@ -140,7 +159,7 @@ class App extends Component {
           </Switch>
         </div>
 
-        { /*<AuthVerify logOut={this.logOut}/> */ }
+        <AuthVerify logOut={this.logOut}/>
       </div>
     );
   }

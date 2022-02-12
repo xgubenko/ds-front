@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://devstack-info.herokuapp.com/";
+// const API_URL = "https://devstack-info.herokuapp.com/";
+const API_URL = 'http://localhost:8080/';
 
 class AuthService {
   login(username, password) {
@@ -19,7 +20,7 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
   }
 
   register(username, email, password) {
@@ -31,7 +32,11 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  getCurrentToken() {
+    return localStorage.getItem('accessToken');
   }
 }
 
