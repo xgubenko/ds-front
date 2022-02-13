@@ -14,7 +14,7 @@ class AuthVerify extends Component<RouteComponentProps> {
     super(props);
 
     props.history.listen(() => {
-      const token = JSON.parse(localStorage.getItem("accessToken") as string);
+      const token = localStorage.getItem("accessToken") as string;
 
       if (token) {
         const decodedJwt = parseJwt(token);

@@ -15,6 +15,23 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
+
+        setInterval(() => {UserService.getMessages().then(
+            response => {
+                this.setState({
+                    messages: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    messages:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        )}, 5000)
+
         UserService.getUserInfo().then(
             response => {
                 this.setState({
