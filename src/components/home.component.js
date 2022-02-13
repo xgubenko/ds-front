@@ -86,7 +86,7 @@ export default class Home extends Component {
                             <div>
                                 {
                                     this.state.messages.map(message => {
-                                        return <div>
+                                        return <div key={message.id}>
                                             <div className="card" style={{marginTop: 8}}>
                                             <div className="form-row">
                                                 <div className="form-group col-md-2">

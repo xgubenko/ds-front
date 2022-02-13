@@ -171,7 +171,7 @@ class App extends Component {
                         <Route exact path="/login" component={Login}/>
                         {/*<Route exact path="/login" component={Login} />*/}
                         <Route path="/register">
-                            <Login tokenChangedHandler={this.tokenChangedHandler} kek={"kek"}/>
+                            <Login tokenChangedHandler={() => this.tokenChangedHandler()} kek={"kek"}/>
                         </Route>
                         <Route exact path="/profile" component={Profile}/>
                         <Route path="/user" component={BoardUser}/>
