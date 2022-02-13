@@ -3,6 +3,9 @@ import {API_URL} from "./constants";
 
 class AuthService {
   login(username: string, password: string) {
+
+    username = username.toLowerCase()
+
     return axios
       .post(API_URL + "login", {
         username,
@@ -22,6 +25,10 @@ class AuthService {
   }
 
   register(username: string, email: string, password: string) {
+
+    username = username.toLowerCase()
+    email = email.toLowerCase()
+
     return axios.post(API_URL + "signup", {
       username,
       email,
