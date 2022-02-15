@@ -74,7 +74,6 @@ class App extends Component {
         }
     }
 
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.tokenChangedHandler()
     }
