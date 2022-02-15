@@ -61,28 +61,24 @@ class App extends Component {
         });
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //   this.setState({
-    // accessToken: localStorage.getItem("accessToken")
-    // })
-    // }
-
     componentWillUnmount() {
         EventBus.remove("logout");
     }
 
     tokenChangedHandler = () => {
-        console.log("KEK")
-        // this.setState({
-        //   tokenChanged: true
-        // })
+        if (this.state.tokenChanged != true) {
+            this.setState({
+                tokenChanged: true,
+                accessToken: localStorage.getItem("accessToken")
+            })
+        }
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //   this.setState({
-    //     tokenChanged: false
-    //   })
-    // }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.tokenChangedHandler()
+    }
+
 
     logOut() {
         AuthService.logout();
@@ -96,7 +92,7 @@ class App extends Component {
 
     render() {
         const {accessToken, currentUser, showModeratorBoard, showAdminBoard} = this.state;
-        // const accessToken = localStorage.getItem('accessToken')
+
         return (
             <div>
                 <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -168,11 +164,8 @@ class App extends Component {
                 <div className="container mt-3">
                     <Switch>
                         <Route exact path={["/", "/home"]} component={Home}/>
-                        <Route exact path="/login" component={Login}/>
-                        {/*<Route exact path="/login" component={Login} />*/}
-                        <Route path="/register">
-                            <Login tokenChangedHandler={() => this.tokenChangedHandler()} kek={"kek"}/>
-                        </Route>
+                        <Route exact path="/login" render={() => <Login tokenChangedHandler={this.tokenChangedHandler}/>}/>
+                        <Route path="/register" component={Register}/>
                         <Route exact path="/profile" component={Profile}/>
                         <Route path="/user" component={BoardUser}/>
                         <Route path="/mod" component={BoardModerator}/>

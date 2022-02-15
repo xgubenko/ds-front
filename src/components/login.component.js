@@ -4,6 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import AuthService from "../services/auth.service";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 const required = value => {
   if (!value) {
@@ -15,7 +16,7 @@ const required = value => {
   }
 };
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -57,6 +58,7 @@ export default class Login extends Component {
         () => {
           this.props.history.push("/home");
           // window.location.reload();
+          this.props.tokenChangedHandler()
         },
         error => {
           const resMessage =
@@ -77,9 +79,12 @@ export default class Login extends Component {
         loading: false
       });
     }
+    //
+
   }
 
   render() {
+
     return (
       <div className="col-md-12">
         <div className="card card-container">
@@ -150,3 +155,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default withRouter(Login)
