@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import AuthService from "../services/auth.service";
+import UserService from "../services/user.service";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -9,23 +9,40 @@ export default class Profile extends Component {
     this.state = {
       redirect: null,
       userReady: false,
-      currentUser: { username: "" }
+      currentUser: {},
+      username: ""
     };
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
+    UserService.getUserInfo().then(
+        response => {
+          this.setState({
+            currentUser: response.data
+          });
+        },
+        error => {
+          this.setState({
+            content:
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString()
+          });
+        }
+    );
+    this.setState({ userReady: true })
 
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
   }
 
   render() {
+    const { currentUser } = this.state;
+
+    if (!currentUser) {this.setState({ redirect: "/home" });}
+
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
     }
-
-    const { currentUser } = this.state;
+    // console.log(this.state)
 
     return (
       <div className="container">
@@ -37,23 +54,23 @@ export default class Profile extends Component {
           </h3>
         </header>
         <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+          {/*<strong>Token:</strong>{" "}*/}
+          {/*{currentUser.accessToken.substring(0, 20)} ...{" "}*/}
+          {/*{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}*/}
         </p>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
+        {/*<p>*/}
+        {/*  <strong>Id:</strong>{" "}*/}
+        {/*  {currentUser.id}*/}
+        {/*</p>*/}
         <p>
           <strong>Email:</strong>{" "}
           {currentUser.email}
         </p>
         <strong>Authorities:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul>
+        {/*<ul>*/}
+        {/*  {currentUser.roles &&*/}
+        {/*    currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}*/}
+        {/*</ul>*/}
       </div>: null}
       </div>
     );
