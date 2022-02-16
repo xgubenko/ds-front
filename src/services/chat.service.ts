@@ -4,9 +4,6 @@ import {API_URL} from "./constants";
 
 class ChatService {
     sendMessage(messageText: string, messageTag: string) {
-
-        console.log(messageText + messageTag)
-
         return axios
             .post(API_URL + "message", {
                 messageText,
