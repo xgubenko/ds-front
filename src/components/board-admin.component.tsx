@@ -3,8 +3,12 @@ import React, { Component } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
-export default class BoardUser extends Component {
-  constructor(props) {
+interface BoardAdminState{
+  content: string
+}
+
+export default class BoardAdmin extends Component<{}, BoardAdminState> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -13,7 +17,7 @@ export default class BoardUser extends Component {
   }
 
   componentDidMount() {
-    UserService.getUserBoard().then(
+    UserService.getAdminBoard().then(
       response => {
         this.setState({
           content: response.data
@@ -30,7 +34,7 @@ export default class BoardUser extends Component {
         });
 
         if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
+          EventBus.dispatch("logout", {});
         }
       }
     );

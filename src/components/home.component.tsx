@@ -3,14 +3,34 @@ import React, {Component} from "react";
 import UserService from "../services/user.service";
 import Chat from "./chat.component";
 
+interface HomeState {
+    content: [],
+    messages: Message[],
+    username: string,
 
-export default class Home extends Component {
-    constructor(props) {
+}
+
+interface Message {
+    id: string,
+    author: User,
+    messageText: string,
+    dateTime: string
+
+}
+
+interface User{
+    username: string
+    email: string
+    isEnabled: boolean
+}
+export default class Home extends Component<{}, HomeState> {
+    constructor(props: any) {
         super(props);
 
         this.state = {
             content: [],
             messages: [],
+            username: "",
         };
     }
 
@@ -35,7 +55,7 @@ export default class Home extends Component {
         UserService.getUserInfo().then(
             response => {
                 this.setState({
-                    content: response.data
+                    username: response.data.username
                 });
             },
             error => {
@@ -66,7 +86,7 @@ export default class Home extends Component {
     }
 
     render() {
-        let username = this.state.content.username;
+        let username = this.state.username;
 
         return (
             <div>
@@ -94,9 +114,6 @@ export default class Home extends Component {
                                                 </div>
                                                 <div className="form-group col-md-9">
                                                     {message.messageText}
-                                                </div>
-                                                <div className="form-group col-md-1">
-                                                    <i>{"Tags: " + message.tag}</i>
                                                 </div>
                                                 <div className="form-group col-md-4">
                                                     { message.dateTime.split('.')[0].split('T')[1] + " " +
