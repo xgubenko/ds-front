@@ -56,7 +56,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/home");
+          this.props.history.push("/");
           // window.location.reload();
           this.props.tokenChangedHandler()
         },
@@ -149,6 +149,7 @@ class Login extends Component {
                 this.checkBtn = c;
               }}
             />
+            <div className="btn btn-primary btn-block" onClick={() => {this.props.history.push("/register")}}>Create Account</div>
           </Form>
         </div>
       </div>
