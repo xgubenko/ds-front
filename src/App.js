@@ -7,7 +7,7 @@ import AuthService from "./services/auth.service";
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Home from "./components/home.component";
+import HomePage from "./pages/HomePage";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
@@ -15,6 +15,7 @@ import BoardAdmin from "./components/board-admin.component";
 
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import ChatPage from "./pages/ChatPage";
 
 class App extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class App extends Component {
     }
 
     tokenChangedHandler = () => {
-        if (this.state.tokenChanged != true) {
+        if (this.state.tokenChanged !== true) {
             this.setState({
                 tokenChanged: true,
                 accessToken: localStorage.getItem("accessToken")
@@ -94,22 +95,81 @@ class App extends Component {
 
         return (
             <div>
+
                 <nav className="navbar navbar-expand navbar-dark bg-dark">
+
                     <Link to={"/"} className="navbar-brand">
                         DevStack
                     </Link>
                     <div className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to={"/home"} className="nav-link">
-                                Home
-                            </Link>
-                        </li>
+                        {accessToken ?
+                            <li className="nav-item">
+                                <Link to={"/chat"} className="nav-link">
+                                    Chat
+                                </Link>
+                            </li> :
+                            <li className="nav-item">
+                                <Link to={"/chat"} className="nav-link disabled">
+                                    Chat
+                                </Link>
+                            </li>
+                        }
                         {accessToken && <li className="nav-item">
                             <Link to={"/profile"} className="nav-link">
                                 {/*{currentUser.username}*/}
                                 Profile
                             </Link>
                         </li>}
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                Articles
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                Jobs
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                About
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                JWT
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                Regexp
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                Questions
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                Notes
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/about"} className="nav-link disabled">
+                                {/*{currentUser.username}*/}
+                                Todos
+                            </Link>
+                        </li>
 
                         {/*{showModeratorBoard && (*/}
                         {/*    <li className="nav-item">*/}
@@ -135,6 +195,7 @@ class App extends Component {
                         {/*    </li>*/}
                         {/*)}*/}
                     </div>
+
 
                     {accessToken ? (
                         <div className="navbar-nav ml-auto">
@@ -162,12 +223,16 @@ class App extends Component {
                     )}
                 </nav>
 
+
                 <div className="container mt-3">
                     <Switch>
-                        <Route exact path={["/", "/home"]} component={Home}/>
-                        <Route exact path="/login" render={() => <Login tokenChangedHandler={this.tokenChangedHandler}/>}/>
+                        <Route exact path={["/"]} component={HomePage}/>
+                        <Route exact path={"/chat"} component={ChatPage}/>
+                        <Route exact path="/login"
+                               render={() => <Login tokenChangedHandler={this.tokenChangedHandler}/>}/>
                         <Route path="/register" component={Register}/>
                         <Route exact path="/profile" component={Profile}/>
+                        <Route exact path="/about" component={Profile}/>
                         <Route path="/user" component={BoardUser}/>
                         <Route path="/mod" component={BoardModerator}/>
                         <Route path="/admin" component={BoardAdmin}/>
