@@ -174,6 +174,13 @@ export default class Register extends Component {
                 </div>
               </div>
             )}
+            {this.state.successful &&
+                <>
+                  <h5 className="card-title">You Signed Up!</h5>
+                  <p className="card-text">Now you can Login to access all features.</p>
+                  <div className="btn btn-primary" onClick={() => {this.props.history.push("/login")}}>Login</div>
+                </>
+            }
 
             {this.state.message && (
               <div className="form-group">
