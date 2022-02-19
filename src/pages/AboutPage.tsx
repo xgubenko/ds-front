@@ -5,8 +5,6 @@ import HomepageSecondaryWelcome from "../components/homepage-secondary-welcome";
 export default class AboutPage extends Component {
     constructor(props: any) {
         super(props);
-
-        this.state = {};
     }
 
     render() {
