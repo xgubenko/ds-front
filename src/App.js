@@ -80,28 +80,6 @@ class App extends Component {
         this.tokenChangedHandler()
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     const token = AuthService.getCurrentToken()
-    //
-    //     this.setState({
-    //         showModeratorBoard: false,
-    //         showAdminBoard: false,
-    //         currentUser: undefined,
-    //         accessToken: undefined,
-    //     });
-    //
-    // }
-
-    // (prevProps, prevState, snapshot) {
-    //     // this.tokenChangedHandler()
-    //     if(this.state.accessToken !== AuthService.getCurrentToken()) {
-    //         this.setState({
-    //             tokenChanged: true,
-    //             accessToken: AuthService.getCurrentToken()
-    //         })
-    //     }
-    // }
-
     logOut() {
         AuthService.logout();
         this.setState({
