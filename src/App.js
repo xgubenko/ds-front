@@ -16,6 +16,7 @@ import BoardAdmin from "./components/board-admin.component";
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import ChatPage from "./pages/ChatPage";
+import AboutPage from "./pages/AboutPage";
 
 class App extends Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class App extends Component {
             showAdminBoard: false,
             tokenChanged: false,
             currentUser: undefined,
-            accessToken: undefined,
+            accessToken: "",
             messageText: "",
             messageTag: "",
             loading: true
@@ -79,6 +80,27 @@ class App extends Component {
         this.tokenChangedHandler()
     }
 
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     const token = AuthService.getCurrentToken()
+    //
+    //     this.setState({
+    //         showModeratorBoard: false,
+    //         showAdminBoard: false,
+    //         currentUser: undefined,
+    //         accessToken: undefined,
+    //     });
+    //
+    // }
+
+    // (prevProps, prevState, snapshot) {
+    //     // this.tokenChangedHandler()
+    //     if(this.state.accessToken !== AuthService.getCurrentToken()) {
+    //         this.setState({
+    //             tokenChanged: true,
+    //             accessToken: AuthService.getCurrentToken()
+    //         })
+    //     }
+    // }
 
     logOut() {
         AuthService.logout();
@@ -91,7 +113,7 @@ class App extends Component {
     }
 
     render() {
-        const {accessToken, currentUser, showModeratorBoard, showAdminBoard} = this.state;
+        const {accessToken} = this.state;
 
         return (
             <div>
@@ -102,6 +124,16 @@ class App extends Component {
                         DevStack
                     </Link>
                     <div className="navbar-nav mr-auto">
+                        {accessToken ? <li className="nav-item">
+                                <Link to={"/profile"} className="nav-link">
+                                    Profile
+                                </Link>
+                            </li> :
+                            <li className="nav-item">
+                                <Link to={"/profile"} className="nav-link disabled">
+                                    Profile
+                                </Link>
+                            </li>}
                         {accessToken ?
                             <li className="nav-item">
                                 <Link to={"/chat"} className="nav-link">
@@ -114,86 +146,12 @@ class App extends Component {
                                 </Link>
                             </li>
                         }
-                        {accessToken && <li className="nav-item">
-                            <Link to={"/profile"} className="nav-link">
-                                {/*{currentUser.username}*/}
-                                Profile
-                            </Link>
-                        </li>}
+
                         <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                Articles
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                Jobs
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
+                            <Link to={"/about"} className="nav-link">
                                 About
                             </Link>
                         </li>
-
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                JWT
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                Regexp
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                Questions
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                Notes
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/about"} className="nav-link disabled">
-                                {/*{currentUser.username}*/}
-                                Todos
-                            </Link>
-                        </li>
-
-                        {/*{showModeratorBoard && (*/}
-                        {/*    <li className="nav-item">*/}
-                        {/*        <Link to={"/mod"} className="nav-link">*/}
-                        {/*            Moderator Board*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*)}*/}
-
-                        {/*{showAdminBoard && (*/}
-                        {/*    <li className="nav-item">*/}
-                        {/*        <Link to={"/admin"} className="nav-link">*/}
-                        {/*            Admin Board*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*)}*/}
-
-                        {/*{currentUser && (*/}
-                        {/*    <li className="nav-item">*/}
-                        {/*        <Link to={"/user"} className="nav-link">*/}
-                        {/*            User*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*)}*/}
                     </div>
 
 
@@ -232,10 +190,10 @@ class App extends Component {
                                render={() => <Login tokenChangedHandler={this.tokenChangedHandler}/>}/>
                         <Route path="/register" component={Register}/>
                         <Route exact path="/profile" component={Profile}/>
-                        <Route exact path="/about" component={Profile}/>
-                        <Route path="/user" component={BoardUser}/>
-                        <Route path="/mod" component={BoardModerator}/>
-                        <Route path="/admin" component={BoardAdmin}/>
+                        <Route exact path="/about" component={AboutPage}/>
+                        {/*<Route path="/user" component={BoardUser}/>*/}
+                        {/*<Route path="/mod" component={BoardModerator}/>*/}
+                        {/*<Route path="/admin" component={BoardAdmin}/>*/}
                     </Switch>
                 </div>
 

@@ -34,9 +34,8 @@ export default class HomePage extends Component {
                         <HomepageSecondaryWelcome heading="Find a job"
                                                   link="#"
                                                   buttonText="View postings &raquo;"
-                                                  contentText="Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                                Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus
-                                commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+                                                  contentText="With Devstack, you can search full or part-time jobs online to find the next step in your career. With tools for job search, resumes, company reviews and more. Get the job you want by researching employers, using the right keywords to filter job search results and improving your networking skills.
+"
                         />
                     </div>
                     <hr/>

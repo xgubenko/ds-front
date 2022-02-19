@@ -22,7 +22,7 @@ interface Message {
 
 }
 
-interface User{
+interface User {
     username: string
     email: string
     isEnabled: boolean
@@ -69,21 +69,23 @@ export default class Chat extends Component<ChatProps, ChatState> {
 
     componentDidMount() {
 
-        setInterval(() => {UserService.getMessages().then(
-            response => {
-                this.setState({
-                    messages: response.data
-                });
-            },
-            error => {
-                this.setState({
-                    messages:
-                        (error.response && error.response.data) ||
-                        error.message ||
-                        error.toString()
-                });
-            }
-        )}, 5000)
+        setInterval(() => {
+            UserService.getMessages().then(
+                response => {
+                    this.setState({
+                        messages: response.data
+                    });
+                },
+                error => {
+                    this.setState({
+                        messages:
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString()
+                    });
+                }
+            )
+        }, 5000)
 
         UserService.getUserInfo().then(
             response => {
@@ -129,46 +131,45 @@ export default class Chat extends Component<ChatProps, ChatState> {
                     {this.state.username &&
                         <header className="jumbotron">
                             <div>
-                                <h1 className="display-4" style={{padding: 20}}>Welcome to our chat!</h1>
-            <div>
-                <form style={{marginBottom: 30}} className="form-row" onSubmit={this.sendMessage}>
-                    <div className="col col-md-10 mx-sm-3 mb-2">
-                        <input
-                            placeholder="Message"
-                            type="text"
-                            className="form-control"
-                            name="messageText"
-                            value={this.state.messageText}
-                            onChange={this.onChangeMessageText}/>
-                    </div>
-                    <input type="submit" className="col btn btn-primary mb-2 mx-sm-2" value={"Send"}/>
-                </form>
-                <div>
-                    {
-                        this.state.messages.map(message => {
-                                return <div key={message.id}>
-                                    <div className="card" style={{marginTop: 8}}>
-                                        <div className="form-row">
-                                            <div className="form-group col-md-2">
-                                                {message.author.username}:
-                                            </div>
-                                            <div className="form-group col-md-9">
-                                                {message.messageText}
-                                            </div>
-                                            <div className="form-group col-md-4">
-                                                { message.dateTime.split('.')[0].split('T')[1] + " " +
-                                                    message.dateTime.split('.')[0].split('T')[0]}
-                                            </div>
-
+                                <div>
+                                    <form style={{marginBottom: 30}} className="form-row" onSubmit={this.sendMessage}>
+                                        <div className="col col-md-10 mx-sm-3 mb-2">
+                                            <input
+                                                placeholder="Message"
+                                                type="text"
+                                                className="form-control"
+                                                name="messageText"
+                                                value={this.state.messageText}
+                                                onChange={this.onChangeMessageText}/>
                                         </div>
+                                        <input type="submit" className="col btn btn-primary mb-2 mx-sm-2"
+                                               value={"Send"}/>
+                                    </form>
+                                    <div>
+                                        {
+                                            this.state.messages.map(message => {
+                                                    return <div key={message.id}>
+                                                        <div className="card" style={{marginTop: 8}}>
+                                                            <div className="form-row">
+                                                                <div className="form-group col-md-2">
+                                                                    <strong>{message.author.username}</strong>:
+                                                                </div>
+                                                                <div className="form-group col-md-9">
+                                                                    {message.messageText}
+                                                                </div>
+                                                                <div className="form-group col-md-4">
+                                                                    {message.dateTime.split('.')[0].split('T')[1] + " " +
+                                                                        message.dateTime.split('.')[0].split('T')[0]}
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                            )}
                                     </div>
                                 </div>
-
-                            }
-
-                        )}
-                </div>
-            </div>
                             </div>
                         </header>
                     }

@@ -10,8 +10,6 @@ interface ChatPageState {
 }
 
 
-
-
 export default class ChatPage extends Component<{}, ChatPageState> {
     constructor(props: any) {
         super(props);
@@ -25,7 +23,7 @@ export default class ChatPage extends Component<{}, ChatPageState> {
 
     render() {
         return (
-                                <Chat/>
+            <Chat/>
         );
     }
 }
