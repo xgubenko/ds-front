@@ -22,6 +22,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("profileImage")
   }
 
   register(username: string, email: string, password: string) {
